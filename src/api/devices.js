@@ -1,11 +1,5 @@
-import request from '@/utils/request'
-
-const hostUrl = 'http://localhost:9111/api'
+import axios from 'axios'
 
 export function getList(params) {
-  return request({
-    url: `${hostUrl}/Devices`,
-    method: 'get',
-    params
-  })
+  return axios.get('http://localhost:9111/api/Devices', { params: params })
 }

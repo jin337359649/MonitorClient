@@ -12,16 +12,18 @@
         <template slot-scope="scope">{{ scope.$index }}</template>
       </el-table-column>
       <el-table-column label="Title">
-        <template slot-scope="scope">{{ scope.row.g_jlyid }}</template>
+        <template slot-scope="scope">{{ scope.row.g_JLYID }}</template>
       </el-table-column>
       <el-table-column align="center" prop="created_at" label="Display_time" width="200">
         <template slot-scope="scope">
           <i class="el-icon-time"/>
-          <span>{{ scope.row.g_lasttimestr }}</span>
+          <span>{{ scope.row.g_LastTimeStr }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="ID" width="95">
-        <button @click="ShowDetail(scope.row)">详情</button>
+      <el-table-column align="center" label="操作" width="95">
+        <template scope="scope">
+          <el-button type="text" size="small" @click="ShowDetail( scope.row)">详情</el-button>
+        </template>
       </el-table-column>
     </el-table>
   </div>
@@ -35,29 +37,32 @@ export default {
     return {
       list: null,
       listLoading: true,
-      listQuery:{
-        CurrentPage:1,
-        PageSize:10,
-        Order:'g_lasttime'
+      listQuery: {
+        CurrentPage: 1,
+        PageSize: 10,
+        Order: "g_lasttime"
       }
     };
   },
   created() {
-    this.fetchData()
-
+    this.fetchData();
   },
   methods: {
     fetchData() {
-      this.listLoading = true
-      getList(this.listQuery).then(response => {
-        this.list = response.Items
-        this.listLoading = false
-      });
+      this.listLoading = true;
+      getList(this.listQuery)
+        .then(response => {
+          this.list = response.data.items;
+          this.listLoading = false;
+        })
+        .catch(function(reason) {
+          console.log(reason);
+        });
     },
     ShowDetail(data) {
       localStorage.setItem("qlmbackup", JSON.stringify(data));
-      location.href="/device"
+      location.href = "/#/example/device";
     }
   }
-}
+};
 </script>
