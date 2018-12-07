@@ -29,25 +29,19 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/example/devices',
     name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
+    meta: { title: '设备管理', icon: 'example' },
     children: [
       {
         path: 'devices',
         name: '设备列表',
         component: () => import('@/views/devicelist/index'),
-        meta: { title: 'Table', icon: 'table' }
+        meta: { title: '设备列表', icon: 'table' }
       },
       {
         path: 'device',
         name: '设备详情',
         component: () => import('@/views/devicedetail/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        meta: { title: '设备详情', icon: 'table' }
       }
     ]
   },
