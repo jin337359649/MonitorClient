@@ -40,6 +40,7 @@ export const constantRouterMap = [
       {
         path: 'device',
         name: '设备详情',
+        hidden: true,
         component: () => import('@/views/devicedetail/index'),
         meta: { title: '设备详情', icon: 'table' }
       }
