@@ -43,6 +43,13 @@ export const constantRouterMap = [
         hidden: true,
         component: () => import('@/views/devicedetail/index'),
         meta: { title: '设备详情', icon: 'table' }
+      },
+      {
+        path: 'test',
+        name: '测试',
+        hidden: true,
+        component: () => import('@/views/test/index'),
+        meta: { title: '测试', icon: 'table' }
       }
     ]
   },
