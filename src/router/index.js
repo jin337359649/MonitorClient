@@ -45,11 +45,10 @@ export const constantRouterMap = [
         meta: { title: '设备详情', icon: 'table' }
       },
       {
-        path: 'test',
-        name: '测试',
-        hidden: true,
-        component: () => import('@/views/test/index'),
-        meta: { title: '测试', icon: 'table' }
+        path: 'map',
+        name: '设备分布',
+        component: () => import('@/views/map/index'),
+        meta: { title: '设备分布', icon: 'table' }
       }
     ]
   },

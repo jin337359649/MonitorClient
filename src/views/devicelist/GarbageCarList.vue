@@ -41,7 +41,7 @@ export default {
         CurrentPage: 1,
         PageSize: 10,
         Order: "g_lasttime",
-        G_AuthCode: "0001"
+        G_AuthCode:"0002"
       }
     };
   },
@@ -61,7 +61,7 @@ export default {
         });
     },
     ShowDetail(id) {
-      location.href = "/#/example/device?id=" + id;
+      location.href = "/#/example/device?id="+id;
     }
   }
 };
