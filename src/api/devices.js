@@ -1,10 +1,18 @@
-import axios from 'axios'
+import request from '@/utils/request'
 
 export function getList(params) {
-  return axios.get(`/api/Devices/QueryDevices`, { params: params })
+  return request({
+    url: '/api/Devices/QueryDevices',
+    method: 'get',
+    params: params
+  })
 }
 
 export function getById(params) {
-  return axios.get(`/api/Devices/GetById`, { params: params })
+  return request({
+    url: '/api/Devices/GetById',
+    method: 'get',
+    params: params
+  })
 }
 

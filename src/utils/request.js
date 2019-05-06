@@ -14,7 +14,13 @@ service.interceptors.request.use(
     // if (store.getters.token) {
     //   config.headers['X-Token'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
     // }
+    config.url = config.url.replace(/\/login/, "http://61.147.70.90:9000");
+    config.url = config.url.replace(/\/api/, "http://61.147.70.90:9111/api");
     return config
+  },
+  request => {
+    console.log(request);
+    return request;
   },
   error => {
     // Do something with request error
@@ -30,6 +36,12 @@ service.interceptors.response.use(
      * code为非200是抛错 可结合自己业务进行修改
      */
     const res = response.data
+
+    if (res.state) {
+      res.State = res.state;
+      res.ErrorMessage = res.errorMessage;
+    }
+
     if (!res.State) {
       Message({
         message: res.ErrorMessage,
