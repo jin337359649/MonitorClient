@@ -21,7 +21,7 @@
         </template>
       </el-table-column>
       <el-table-column align="center" label="操作" width="95">
-        <template scope="scope">
+        <template slot-scope="scope">
           <router-link :to="{ path: '/example/device', query: { id: scope.row.g_JLYID}}">详情</router-link>
         </template>
       </el-table-column>

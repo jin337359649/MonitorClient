@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import { getList } from "@/api/devices";
-import AMap from "AMap"; //在页面中引入高德地图
+import { getList } from "@/api/devices"
+import AMap from "AMap" //在页面中引入高德地图
 
 export default {
   data() {
@@ -33,7 +33,9 @@ export default {
         .then(response => {
           this.CarList = response.data.items;
 
-          if (response.data.length == 0) {
+          let data = response.data.items.filter(x => x.amapLatItude);
+
+          if (data.length == 0) {
             return false;
           }
 
@@ -73,14 +75,17 @@ export default {
       });
 
       return marker;
-    },
+    }
   }
 };
 </script>
 
 <style scoped>
+
+
 .mymap {
   width: 100%;
+  min-height: 500px;
   height: 100%;
 }
 </style>
