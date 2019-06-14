@@ -8,11 +8,14 @@
       fit
       highlight-current-row
     >
-      <el-table-column align="center" label="序号" width="95">
-        <template slot-scope="scope">{{ scope.$index }}</template>
-      </el-table-column>
       <el-table-column label="设备号">
         <template slot-scope="scope">{{ scope.row.g_JLYID }}</template>
+      </el-table-column>
+      <el-table-column label="在线时间">
+        <template slot-scope="scope">{{ scope.row.g_LastTime }}</template>
+      </el-table-column>
+      <el-table-column label="地址">
+        <template slot-scope="scope">{{ scope.row.g_Address }}</template>
       </el-table-column>
       <el-table-column align="center" prop="created_at" label="工况时间" width="200">
         <template slot-scope="scope">
@@ -22,7 +25,7 @@
       </el-table-column>
       <el-table-column align="center" label="操作" width="95">
         <template slot-scope="scope">
-          <router-link :to="{ path: '/example/device', query: { id: scope.row.g_JLYID}}">详情</router-link>
+          <a @click="ShowDetail(scope.row.g_JLYID,scope.row.authCode)">详情</a>
         </template>
       </el-table-column>
     </el-table>
@@ -40,8 +43,7 @@ export default {
       listQuery: {
         CurrentPage: 1,
         PageSize: 10,
-        Order: "g_lasttime",
-        G_AuthCode: "0001"
+        Order: "g_lasttime"
       }
     };
   },
@@ -60,8 +62,18 @@ export default {
           console.log(reason);
         });
     },
-    ShowDetail(id) {
-      location.href = "/#/example/device?id=" + id;
+    ShowDetail(id,authCode) {
+      switch (authCode) {
+        case "0001":
+          this.$router.push({ path: "FireCar", query: { id: id } });
+          break;
+        case "0002":
+          this.$router.push({ path: "AirConditioner", query: { id: id } });
+          break;
+        case "0003":
+          this.$router.push({ path: "GarbageCar", query: { id: id } });
+          break;
+      }
     }
   }
 };

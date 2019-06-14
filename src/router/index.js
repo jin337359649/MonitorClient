@@ -38,11 +38,25 @@ export const constantRouterMap = [
         meta: { title: '设备列表', icon: 'table' }
       },
       {
-        path: 'device',
-        name: '设备详情',
+        path: 'GarbageCar',
+        name: 'GarbageCar',
         hidden: true,
-        component: () => import('@/views/devicedetail/index'),
-        meta: { title: '设备详情', icon: 'table' }
+        component: () => import('@/views/devicedetail/GarbageCar'),
+        meta: { title: '环卫车', icon: 'table' }
+      },
+      {
+        path: 'FireCar',
+        name: 'FireCar',
+        hidden: true,
+        component: () => import('@/views/devicedetail/FireCar'),
+        meta: { title: '消防车', icon: 'table' }
+      },
+      {
+        path: 'AirConditioner',
+        name: 'AirConditioner',
+        hidden: true,
+        component: () => import('@/views/devicedetail/AirConditioner'),
+        meta: { title: '空调机', icon: 'table' }
       },
       {
         path: 'map',

@@ -19,7 +19,6 @@ export default {
         CurrentPage: 1,
         PageSize: 9999,
         Order: "g_lasttime",
-        G_AuthCode: "0002"
       }
     };
   },
@@ -67,12 +66,12 @@ export default {
 
       const router = this.$router;
 
-      marker.on("click", function() {
-        router.push({
-          name: "device",
-          params: { id: car.car_Jlyid }
-        });
-      });
+      // marker.on("click", function() {
+      //   router.push({
+      //     name: "device",
+      //     params: { id: car.car_Jlyid }
+      //   });
+      // });
 
       return marker;
     }
