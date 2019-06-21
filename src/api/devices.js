@@ -8,6 +8,14 @@ export function getList(params) {
   })
 }
 
+export function getHistoryLog(params) {
+  return request({
+    url: '/api/Devices/GetHistoryData',
+    method: 'get',
+    params: params
+  })
+}
+
 export function getById(params) {
   return request({
     url: '/api/FireCarDevices/GetById',

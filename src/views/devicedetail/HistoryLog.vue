@@ -8,28 +8,21 @@
       fit
       highlight-current-row
     >
-      <el-table-column label="设备号">
-        <template slot-scope="scope">{{ scope.row.g_JLYID }}</template>
-      </el-table-column>
       <el-table-column label="在线时间">
         <template slot-scope="scope">{{ scope.row.g_LastTime }}</template>
       </el-table-column>
-      <el-table-column label="地址">
-        <template slot-scope="scope">{{ scope.row.g_Address }}</template>
-      </el-table-column>
-      <el-table-column align="center" prop="created_at" label="工况时间" width="200">
-        <template slot-scope="scope">
-          <i class="el-icon-time"/>
-          <span>{{ scope.row.g_ExpandTimeStr }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="操作" width="95">
-        <template slot-scope="scope">
-          <a @click="ShowDetail(scope.row.g_JLYID,scope.row.authCode)">详情</a>
-          <a @click="ShowLog(scope.row.g_JLYID)">日志</a>
-        </template>
+      <el-table-column label="数据包">
+        <template slot-scope="scope">{{ scope.row.g_databackup }}</template>
       </el-table-column>
     </el-table>
+
+    <el-pagination
+      background
+      layout="prev, pager, next"
+      :total="TotalCount"
+      :current-page="listQuery.CurrentPage"
+      :page-size="listQuery.PageSize"
+    ></el-pagination>
   </div>
 </template>
 
@@ -42,10 +35,14 @@ export default {
       list: null,
       listLoading: true,
       listQuery: {
+        Id: 1,
+        StartTime: "",
+        EndTime: "",
         CurrentPage: 1,
         PageSize: 10,
         Order: "g_lasttime desc"
-      }
+      },
+      TotalCount: 0
     };
   },
   created() {
@@ -57,13 +54,14 @@ export default {
       getList(this.listQuery)
         .then(response => {
           this.list = response.data.items;
+          this.TotalCount = response.data.totalCount;
           this.listLoading = false;
         })
         .catch(function(reason) {
           console.log(reason);
         });
     },
-    ShowDetail(id,authCode) {
+    ShowDetail(id, authCode) {
       switch (authCode) {
         case "0001":
           this.$router.push({ path: "FireCar", query: { id: id } });
@@ -75,9 +73,6 @@ export default {
           this.$router.push({ path: "GarbageCar", query: { id: id } });
           break;
       }
-    },
-    ShowLog(id){
-          this.$router.push({ path: "ShowLog", query: { id: id } });
     }
   }
 };

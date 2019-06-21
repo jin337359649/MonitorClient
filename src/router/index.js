@@ -59,6 +59,13 @@ export const constantRouterMap = [
         meta: { title: '空调机', icon: 'table' }
       },
       {
+        path: 'ShowLog',
+        name: 'ShowLog',
+        hidden: true,
+        component: () => import('@/views/devicedetail/HistoryLog'),
+        meta: { title: '日志数据', icon: 'table' }
+      },
+      {
         path: 'map',
         name: '设备分布',
         component: () => import('@/views/map/index'),
