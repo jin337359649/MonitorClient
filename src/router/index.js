@@ -73,6 +73,21 @@ export const constantRouterMap = [
       }
     ]
   },
+  {
+    path: '/mqtt',
+    component: Layout,
+    redirect: '/mqtt/client',
+    name: 'mqtt',
+    meta: { title: 'MQTT助手', icon: 'example' },
+    children: [
+      {
+        path: 'mqttclient',
+        name: 'mqttclient',
+        component: () => import('@/views/mqtt/index'),
+        meta: { title: 'MQTT监控', icon: 'table' }
+      }
+    ]
+  },
   { path: '*', redirect: '/example/devices', hidden: true }
 ]
 
