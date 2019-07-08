@@ -1,40 +1,93 @@
 <template>
   <el-container>
     <el-header>
-      <h1>空调机工况</h1>
+      <h1>环卫车工况</h1>
     </el-header>
     <el-main>
       <el-row :gutter="20">
         <el-col :span="6">
-          <div class="grid-content bg-purple">设备编号:{{ device.g_JLYID }}</div>
+          <div class="grid-content">
+            <label for>设备编号：</label>
+            {{ device.g_JLYID }}
+          </div>
         </el-col>
         <el-col :span="6">
-          <div class="grid-content bg-purple">工况上报时间：{{ device.g_LastTimeStr }}</div>
+          <div class="grid-content">
+            <label for>是否定位：</label>
+            {{ device.gpsState }}
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div class="grid-content">
+            <label for>锁车状态：</label>
+            {{ device.lockState }}
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div class="grid-content">
+            <label for>发动机状态：</label>
+            {{ device.engineState }}
+          </div>
         </el-col>
       </el-row>
       <el-row :gutter="20">
         <el-col :span="6">
-          <div class="grid-content bg-purple">油耗效率：{{ device.c_FuelEfficiency }}</div>
+          <div class="grid-content">
+            <label for>油耗效率：</label>
+            {{ device.c_FuelEfficiency }} L/H
+          </div>
         </el-col>
         <el-col :span="6">
-          <div class="grid-content bg-purple">工时：{{ device.c_Workinghours }}</div>
+          <div class="grid-content">
+            <label for>工时：</label>
+            {{ device.c_Workinghours }} H
+          </div>
         </el-col>
         <el-col :span="6">
-          <div class="grid-content bg-purple">油量：{{ device.c_FuelVolume }}</div>
+          <div class="grid-content">
+            <label for>油量：</label>
+            {{ device.c_FuelVolume }} L
+          </div>
         </el-col>
         <el-col :span="6">
-          <div class="grid-content bg-purple">转速：{{ device.c_Revspeed }}</div>
+          <div class="grid-content">
+            <label for>转速：</label>
+            {{ device.c_Revspeed }} r/min
+          </div>
         </el-col>
       </el-row>
       <el-row :gutter="20">
         <el-col :span="6">
-          <div class="grid-content bg-purple">扭矩百分比：{{ device.c_Torque }}</div>
+          <div class="grid-content">
+            <label for>扭矩百分比：</label>
+            {{ device.c_Torque }} %
+          </div>
         </el-col>
         <el-col :span="6">
-          <div class="grid-content bg-purple">电压：{{ device.c_Voltage }}</div>
+          <div class="grid-content">
+            <label for>电压：</label>
+            {{ device.c_Voltage }} V
+          </div>
         </el-col>
         <el-col :span="6">
-          <div class="grid-content bg-purple">水温：{{ device.c_WaterTemperature }}</div>
+          <div class="grid-content">
+            <label for>水温：</label>
+            {{ device.c_WaterTemperature }} ℃
+          </div>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <div class="grid-content">
+            <label for>数据采集时间：</label>
+            {{ device.g_LastTimeStr }}
+          </div>
+        </el-col>
+        <el-col :span="12">
+          <div class="grid-content">
+            <label for>车辆位置：</label>
+            {{ device.g_Address }}
+          </div>
         </el-col>
       </el-row>
     </el-main>
@@ -55,7 +108,7 @@ export default {
   },
   methods: {
     fetchData() {
-      getById({ id: this.$route.query.id }).then(result => {
+      getGarbageCarById({ id: this.$route.query.id }).then(result => {
         this.device = result.data;
       });
     }
@@ -72,5 +125,15 @@ export default {
     font-size: 30px;
     line-height: 46px;
   }
+}
+
+.el-row {
+  height: 30px;
+}
+
+.grid-content > label {
+  width: 125px;
+  text-align: right;
+  display: inline-block;
 }
 </style>
