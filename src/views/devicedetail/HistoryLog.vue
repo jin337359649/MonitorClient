@@ -1,5 +1,29 @@
 <template>
   <div class="app-container">
+    <el-form :inline="true" @submit.native.prevent class="demo-form-inline">
+      <el-form-item label="起始：">
+        <el-date-picker
+            v-model="listQuery.StartTime"
+            align="right"
+            type="date"
+            placeholder="起始"
+            :picker-options="pickerOptions"
+          ></el-date-picker>
+      </el-form-item>
+      <el-form-item label="至：">
+        <el-date-picker
+            v-model="listQuery.EndTime"
+            align="right"
+            type="date"
+            placeholder="至"
+            :picker-options="pickerOptions"
+          ></el-date-picker>
+      </el-form-item>
+      <el-form-item>
+        <el-button class="pan-btn green-btn" @click="fetchData">查询</el-button>
+      </el-form-item>
+    </el-form>
+
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -9,10 +33,10 @@
       highlight-current-row
     >
       <el-table-column label="在线时间">
-        <template slot-scope="scope">{{ scope.row.g_LastTime }}</template>
+        <template slot-scope="scope">{{ scope.row.lasttime_str }}</template>
       </el-table-column>
       <el-table-column label="数据包">
-        <template slot-scope="scope">{{ scope.row.g_databackup }}</template>
+        <template slot-scope="scope">{{ scope.row.hex_backup }}</template>
       </el-table-column>
     </el-table>
 
@@ -22,12 +46,14 @@
       :total="TotalCount"
       :current-page="listQuery.CurrentPage"
       :page-size="listQuery.PageSize"
+      @current-change="fetchData"
     ></el-pagination>
   </div>
 </template>
 
 <script>
-import { getList } from "@/api/devices";
+import { getHistoryLog } from "@/api/devices";
+import moment from 'moment'
 
 export default {
   data() {
@@ -36,8 +62,8 @@ export default {
       listLoading: true,
       listQuery: {
         Id: 1,
-        StartTime: "",
-        EndTime: "",
+        StartTime: moment().startOf('month').format("YYYY-MM-DD"),
+        EndTime: moment().format("YYYY-MM-DD"),
         CurrentPage: 1,
         PageSize: 10,
         Order: "g_lasttime desc"
@@ -47,11 +73,13 @@ export default {
   },
   created() {
     this.fetchData();
+    debugger;
+    this.listQuery.Id = this.$route.query.id;
   },
   methods: {
     fetchData() {
       this.listLoading = true;
-      getList(this.listQuery)
+      getHistoryLog(this.listQuery)
         .then(response => {
           this.list = response.data.items;
           this.TotalCount = response.data.totalCount;
@@ -60,19 +88,6 @@ export default {
         .catch(function(reason) {
           console.log(reason);
         });
-    },
-    ShowDetail(id, authCode) {
-      switch (authCode) {
-        case "0001":
-          this.$router.push({ path: "FireCar", query: { id: id } });
-          break;
-        case "0002":
-          this.$router.push({ path: "AirConditioner", query: { id: id } });
-          break;
-        case "0003":
-          this.$router.push({ path: "GarbageCar", query: { id: id } });
-          break;
-      }
     }
   }
 };

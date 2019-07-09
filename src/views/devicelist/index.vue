@@ -31,10 +31,11 @@
           <span>{{ scope.row.g_ExpandTimeStr }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="操作" width="125">
+      <el-table-column align="center" label="操作" width="165">
         <template slot-scope="scope">
           <el-button type="text" @click="ShowDetail(scope.row.g_JLYID,scope.row.authCode)">详情</el-button>
           <el-button type="text" @click="ShowLog(scope.row.g_JLYID)">日志</el-button>
+          <el-button type="text" @click="CarReplay(scope.row.g_JLYID)">轨迹</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -97,6 +98,9 @@ export default {
     },
     ShowLog(id) {
       this.$router.push({ path: "ShowLog", query: { id: id } });
+    },
+    CarReplay(id){
+      this.$router.push({ path: "CarReplay", query: { id: id } });
     }
   }
 };

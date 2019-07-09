@@ -66,6 +66,13 @@ export const constantRouterMap = [
         meta: { title: '日志数据', icon: 'table' }
       },
       {
+        path: 'CarReplay',
+        name: 'CarReplay',
+        hidden: true,
+        component: () => import('@/views/map/CarReplay'),
+        meta: { title: '轨迹回放', icon: 'table' }
+      },
+      {
         path: 'map',
         name: '设备分布',
         component: () => import('@/views/map/index'),

@@ -39,3 +39,11 @@ export function getGarbageCarById(params) {
     params: params
   })
 }
+
+export function getHistoryLocation(params) {
+  return request({
+    url: '/api/Devices/GetHistoryLocation',
+    method: 'get',
+    params: params
+  })
+}
