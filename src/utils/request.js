@@ -16,9 +16,9 @@ service.interceptors.request.use(
     }
     console.log(config)
 
-    // config.url = config.url.replace(/\/login/, "http://61.147.70.90:9000");
-    config.url = config.url.replace(/\/login/, "http://localhost:9001");
-    config.url = config.url.replace(/\/api/, "http://localhost:55300/api");
+    config.url = config.url.replace(/\/login/, "http://61.147.70.90:9000");
+    // config.url = config.url.replace(/\/login/, "http://localhost:9001");
+    config.url = config.url.replace(/\/api/, "http://61.147.70.90:9111/api");
     // config.url = config.url.replace(/\/api/, "http://localhost:55300/api");
     return config
   },
