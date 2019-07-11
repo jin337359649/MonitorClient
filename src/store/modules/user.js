@@ -7,7 +7,8 @@ const user = {
     name: '',
     avatar: '',
     roles: [],
-    id: getId()
+    id: getId(),
+    authCode: ''
   },
 
   mutations: {
@@ -25,6 +26,9 @@ const user = {
     },
     SET_ID: (state, id) => {
       state.id = id
+    },
+    SET_AUTHCODE: (state, authCode) => {
+      state.authCode = authCode
     }
   },
 
@@ -79,6 +83,13 @@ const user = {
         commit('SET_TOKEN', '')
         removeToken()
         resolve()
+      })
+    },
+
+    SetAuthCode({ commit },authCode) {
+      return new Promise(resolve => {
+        commit('SET_AUTHCODE', authCode);
+        resolve();
       })
     }
   }

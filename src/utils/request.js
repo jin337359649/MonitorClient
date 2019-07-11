@@ -11,10 +11,13 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(
   config => {
-    // if (store.getters.token) {
-    //   config.headers['X-Token'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
-    // }
-    config.url = config.url.replace(/\/login/, "http://61.147.70.90:9000");
+    if (store.getters.token) {
+      config.headers['Authorization'] = store.getters.id+'#'+store.getters.token // 让每个请求携带自定义token 请根据实际情况自行修改
+    }
+    console.log(config)
+
+    // config.url = config.url.replace(/\/login/, "http://61.147.70.90:9000");
+    config.url = config.url.replace(/\/login/, "http://localhost:9001");
     config.url = config.url.replace(/\/api/, "http://localhost:55300/api");
     // config.url = config.url.replace(/\/api/, "http://localhost:55300/api");
     return config
@@ -37,7 +40,6 @@ service.interceptors.response.use(
      * code为非200是抛错 可结合自己业务进行修改
      */
     const res = response.data
-
     if (res.state) {
       res.State = res.state;
       res.ErrorMessage = res.errorMessage;

@@ -1,5 +1,12 @@
 import request from '@/utils/request'
 
+export function getCategories() {
+  return request({
+    url: '/login/Home/QueryCategories',
+    method: 'get'
+  })
+}
+
 export function getList(params) {
   return request({
     url: '/api/Devices/QueryDevices',

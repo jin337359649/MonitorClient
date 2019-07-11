@@ -61,7 +61,8 @@ export default {
         CurrentPage: 1,
         PageSize: 10,
         Order: "g_lasttime desc",
-        Code: ""
+        Code: "",
+        G_AuthCode: this.$store.getters.AuthCode
       },
       totalCount: 0
     };
@@ -83,7 +84,6 @@ export default {
         });
     },
     ShowDetail(id, authCode) {
-      debugger
       switch (authCode) {
         case "0001":
           this.$router.push({ path: "FireCar", query: { id: id } });
@@ -99,7 +99,7 @@ export default {
     ShowLog(id) {
       this.$router.push({ path: "ShowLog", query: { id: id } });
     },
-    CarReplay(id){
+    CarReplay(id) {
       this.$router.push({ path: "CarReplay", query: { id: id } });
     }
   }

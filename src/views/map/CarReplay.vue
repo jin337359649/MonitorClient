@@ -16,6 +16,7 @@ export default {
   data() {
     return {
       lineArr: [],
+      pathParam: [],
       map: {},
       marker: {},
       query: {
@@ -23,14 +24,19 @@ export default {
         endTime: moment().format("YYYY-MM-DD"),
         id: "",
         Count: 80
-      }
+      },
+      graspRoad: {}
     };
   },
   mounted() {
     this.query.id = this.$route.query.id;
 
     const ctr = this;
-    this.Load();
+
+    AMap.plugin("AMap.GraspRoad", function() {
+      //异步加载插件
+      ctr.Load();
+    });
   },
   methods: {
     Run() {
@@ -51,35 +57,56 @@ export default {
 
         data.forEach(e => {
           this.lineArr.push([e.amapLongItude, e.amapLatItude]);
+          this.pathParam.push({
+            x: e.amapLongItude,
+            y: e.amapLatItude,
+            sp: e.g_Speed,
+            ag: e.g_Direct,
+            tm: e.timeSign
+          });
         });
 
-        this.map = new AMap.Map("container", {
-          resizeEnable: true,
-        });
+        if (!this.graspRoad.driving) {
+          this.graspRoad = new AMap.GraspRoad();
+        }
+        this.graspRoad.driving(this.pathParam, function(error, result) {
+          if (!error) {
+            var path2 = [];
+            var newPath = result.data.points;
+            for (var i = 0; i < newPath.length; i += 1) {
+              path2.push([newPath[i].x, newPath[i].y]);
+            }
+            ctr.lineArr = path2;
+          } 
 
-        var passedPolyline = new AMap.Polyline({
-          map: ctr.map,
-          path: ctr.lineArr,
-          strokeColor: "#AF5", // 线颜色
-          // strokeOpacity: 1,     //线透明度
-          strokeWeight: 6 // 线宽
-          // strokeStyle: "solid"  //线样式
-        });
+          ctr.map = new AMap.Map("container", {
+            resizeEnable: true
+          });
 
-        this.marker = new AMap.Marker({
-          map: this.map,
-          position: this.lineArr[0],
-          icon: "./static/excavatorRun.png",
-          offset: new AMap.Pixel(-13, -15),
-          autoRotation: true,
-          angle: -180
-        });
+          var passedPolyline = new AMap.Polyline({
+            map: ctr.map,
+            path: ctr.lineArr,
+            strokeColor: "#AF5", // 线颜色
+            // strokeOpacity: 1,     //线透明度
+            strokeWeight: 6 // 线宽
+            // strokeStyle: "solid"  //线样式
+          });
 
-        this.marker.on("moving", function(e) {
-          passedPolyline.setPath(e.passedPath);
-        });
+          ctr.marker = new AMap.Marker({
+            map: ctr.map,
+            position: ctr.lineArr[0],
+            icon: "./static/excavatorRun.png",
+            offset: new AMap.Pixel(-13, -15),
+            autoRotation: true,
+            angle: -180
+          });
 
-        this.map.setFitView();
+          ctr.marker.on("moving", function(e) {
+            passedPolyline.setPath(e.passedPath);
+          });
+
+          ctr.map.setFitView();
+        });
       });
     }
   }

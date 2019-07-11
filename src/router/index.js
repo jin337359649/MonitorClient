@@ -32,6 +32,13 @@ export const constantRouterMap = [
     meta: { title: '设备管理', icon: 'example' },
     children: [
       {
+        path: 'home',
+        name: '车型列表',
+        hidden: true,
+        component: () => import('@/views/home/Index'),
+        meta: { title: '车型列表', icon: 'table' }
+      },
+      {
         path: 'devices',
         name: '设备列表',
         component: () => import('@/views/devicelist/index'),
@@ -76,7 +83,7 @@ export const constantRouterMap = [
         path: 'map',
         name: '设备分布',
         component: () => import('@/views/map/index'),
-        meta: { title: '设备分布', icon: 'table' }
+        meta: { title: '设备分布', icon: 'eye' }
       }
     ]
   },
@@ -91,11 +98,11 @@ export const constantRouterMap = [
         path: 'mqttclient',
         name: 'mqttclient',
         component: () => import('@/views/mqtt/index'),
-        meta: { title: 'MQTT监控', icon: 'table' }
+        meta: { title: 'MQTT监控', icon: 'form' }
       }
     ]
   },
-  { path: '*', redirect: '/example/devices', hidden: true }
+  { path: '*', redirect: '/example/home', hidden: true }
 ]
 
 export default new Router({

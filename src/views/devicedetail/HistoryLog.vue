@@ -73,7 +73,6 @@ export default {
   },
   created() {
     this.fetchData();
-    debugger;
     this.listQuery.Id = this.$route.query.id;
   },
   methods: {
