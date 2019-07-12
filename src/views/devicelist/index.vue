@@ -67,12 +67,14 @@ export default {
       totalCount: 0
     };
   },
-  created() {
+  mounted() {
     this.fetchData();
+    console.log(this.$store.getters)
   },
   methods: {
     fetchData() {
       this.listLoading = true;
+      console.log(this.listQuery);
       getList(this.listQuery)
         .then(response => {
           this.list = response.data.items;

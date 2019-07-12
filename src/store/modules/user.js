@@ -1,5 +1,5 @@
 import { login, getInfo } from '@/api/login'
-import { getToken, setToken, removeToken, getId } from '@/utils/auth'
+import { getToken, setToken, removeToken, getId, setAuthCode, getAuthCode } from '@/utils/auth'
 
 const user = {
   state: {
@@ -8,7 +8,7 @@ const user = {
     avatar: '',
     roles: [],
     id: getId(),
-    authCode: ''
+    authCode: getAuthCode()
   },
 
   mutations: {
@@ -86,9 +86,10 @@ const user = {
       })
     },
 
-    SetAuthCode({ commit },authCode) {
+    SetAuthCode({ commit }, authCode) {
       return new Promise(resolve => {
         commit('SET_AUTHCODE', authCode);
+        setAuthCode(authCode);
         resolve();
       })
     }

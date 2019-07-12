@@ -1,6 +1,17 @@
 <template>
   <div class="app-container">
-    <el-button class="RunButton" @click="Run()" type="success" icon="el-icon-switch-button" circle></el-button>
+    <div class="block">
+      <el-date-picker
+        v-model="query.timeScope"
+        type="datetimerange"
+        align="right"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"
+        :default-time="['7:00:00', '20:00:00']"
+        @change="change"
+      ></el-date-picker>
+    </div>
+    <el-button class="RunButton" @click="Run()" type="warning" icon="el-icon-loading" circle></el-button>
     <div class="mymap">
       <div id="container" class="mymap"></div>
     </div>
@@ -20,10 +31,11 @@ export default {
       map: {},
       marker: {},
       query: {
-        startTime: moment().format("YYYY-MM-DD"),
-        endTime: moment().format("YYYY-MM-DD"),
+        startTime: moment().format("YYYY-MM-DD 07:00:00"),
+        endTime: moment().format("YYYY-MM-DD 20:00:00"),
+        timeScope: "",
         id: "",
-        Count: 80
+        Count: 250
       },
       graspRoad: {}
     };
@@ -43,8 +55,12 @@ export default {
       this.marker.moveAlong(this.lineArr, 2000);
     },
     change() {
+      debugger
       this.map.clearMap();
       this.lineArr = [];
+      this.pathParam = [];
+      this.query.startTime = this.query.timeScope[0];
+      this.query.endTime = this.query.timeScope[1];
       this.Load();
     },
     Load() {
@@ -77,7 +93,7 @@ export default {
               path2.push([newPath[i].x, newPath[i].y]);
             }
             ctr.lineArr = path2;
-          } 
+          }
 
           ctr.map = new AMap.Map("container", {
             resizeEnable: true
@@ -124,5 +140,6 @@ export default {
   position: fixed;
   right: 10px;
   bottom: 10px;
+  z-index: 1;
 }
 </style>

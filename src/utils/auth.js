@@ -2,6 +2,7 @@ import Cookies from 'js-cookie'
 
 const TokenKey = 'Admin-Token'
 const LoginKey = 'Login'
+const AuthCodeKey = 'AuthCode'
 
 export function getToken() {
   let token = Cookies.get(TokenKey)
@@ -35,3 +36,15 @@ export function removeToken() {
   return Cookies.remove(TokenKey)
 }
 
+export function setAuthCode(authCode) {
+  const cookie = `authCode=${authCode}`
+
+  return Cookies.set(AuthCodeKey, cookie)
+}
+
+export function getAuthCode() {
+  let code = Cookies.get(AuthCodeKey)
+  if (code != null) {
+    return code.substring(9, code.length)
+  }
+}
