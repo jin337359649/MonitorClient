@@ -96,6 +96,9 @@ export default {
         case "0003":
           this.$router.push({ path: "AirConditioner", query: { id: id } });
           break;
+        case "0005":
+          this.$router.push({ path: "CleanRoad", query: { id: id } });
+          break;
       }
     },
     ShowLog(id) {

@@ -19,6 +19,7 @@ export default {
         CurrentPage: 1,
         PageSize: 9999,
         Order: "g_lasttime",
+        G_AuthCode: this.$store.getters.AuthCode
       }
     };
   },
