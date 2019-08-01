@@ -52,6 +52,13 @@ export const constantRouterMap = [
         meta: { title: '环卫车', icon: 'table' }
       },
       {
+        path: 'CleanRoad',
+        name: 'CleanRoad',
+        hidden: true,
+        component: () => import('@/views/devicedetail/CleanRoad'),
+        meta: { title: '五征扫地车', icon: 'table' }
+      },
+      {
         path: 'FireCar',
         name: 'FireCar',
         hidden: true,

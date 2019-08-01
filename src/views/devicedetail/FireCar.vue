@@ -109,7 +109,7 @@
 </template>
 
 <script>
-import { getById } from "@/api/devices";
+import { getFireCarById } from "@/api/devices";
 
 export default {
   data() {
@@ -122,7 +122,7 @@ export default {
   },
   methods: {
     fetchData() {
-      getById({ id: this.$route.query.id }).then(result => {
+      getFireCarById({ id: this.$route.query.id }).then(result => {
         this.device = result.data;
       });
     }

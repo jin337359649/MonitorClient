@@ -15,6 +15,14 @@ export function getList(params) {
   })
 }
 
+export function getById(params) {
+  return request({
+    url: '/api/Devices/GetById',
+    method: 'get',
+    params: params
+  })
+}
+
 export function getHistoryLog(params) {
   return request({
     url: '/api/Devices/GetHistoryData',
@@ -23,7 +31,7 @@ export function getHistoryLog(params) {
   })
 }
 
-export function getById(params) {
+export function getFireCarById(params) {
   return request({
     url: '/api/FireCarDevices/GetById',
     method: 'get',
