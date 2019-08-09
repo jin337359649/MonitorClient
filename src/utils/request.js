@@ -5,7 +5,7 @@ import store from '../store'
 // 创建axios实例
 const service = axios.create({
   baseURL: process.env.BASE_API, // api 的 base_url
-  timeout: 5000 // 请求超时时间
+  timeout: 15000 // 请求超时时间
 })
 
 // request拦截器
@@ -14,16 +14,14 @@ service.interceptors.request.use(
     if (store.getters.token) {
       config.headers['Authorization'] = store.getters.id+'#'+store.getters.token // 让每个请求携带自定义token 请根据实际情况自行修改
     }
-    console.log(config)
 
     config.url = config.url.replace(/\/login/, "http://61.147.70.90:9000");
     // config.url = config.url.replace(/\/login/, "http://localhost:9001");
-    config.url = config.url.replace(/\/api/, "http://61.147.70.90:9111/api");
-    // config.url = config.url.replace(/\/api/, "http://localhost:55300/api");
+    // config.url = config.url.replace(/\/api/, "http://61.147.70.90:9111/api");
+    config.url = config.url.replace(/\/api/, "http://localhost:55300/api");
     return config
   },
   request => {
-    console.log(request);
     return request;
   },
   error => {

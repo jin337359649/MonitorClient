@@ -6,6 +6,7 @@
       </el-form-item>
       <el-form-item>
         <el-button class="pan-btn green-btn" @click="fetchData">查询</el-button>
+        <el-button class="pan-btn green-btn" @click="changeCategory">选择类型</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -106,6 +107,9 @@ export default {
     },
     CarReplay(id) {
       this.$router.push({ path: "CarReplay", query: { id: id } });
+    },
+    changeCategory(){
+      this.$router.push({ path: "home"});
     }
   }
 };

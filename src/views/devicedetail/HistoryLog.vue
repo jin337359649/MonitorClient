@@ -2,22 +2,10 @@
   <div class="app-container">
     <el-form :inline="true" @submit.native.prevent class="demo-form-inline">
       <el-form-item label="起始：">
-        <el-date-picker
-            v-model="listQuery.StartTime"
-            align="right"
-            type="date"
-            placeholder="起始"
-            :picker-options="pickerOptions"
-          ></el-date-picker>
+        <el-date-picker v-model="listQuery.StartTime" align="right" type="date" placeholder="起始"></el-date-picker>
       </el-form-item>
       <el-form-item label="至：">
-        <el-date-picker
-            v-model="listQuery.EndTime"
-            align="right"
-            type="date"
-            placeholder="至"
-            :picker-options="pickerOptions"
-          ></el-date-picker>
+        <el-date-picker v-model="listQuery.EndTime" align="right" type="date" placeholder="至"></el-date-picker>
       </el-form-item>
       <el-form-item>
         <el-button class="pan-btn green-btn" @click="fetchData">查询</el-button>
@@ -44,8 +32,8 @@
       background
       layout="prev, pager, next"
       :total="TotalCount"
-      :current-page="listQuery.CurrentPage"
-      :page-size="listQuery.PageSize"
+      :current-page.sync="listQuery.CurrentPage"
+      :page-size.sync="listQuery.PageSize"
       @current-change="fetchData"
     ></el-pagination>
   </div>
@@ -53,7 +41,7 @@
 
 <script>
 import { getHistoryLog } from "@/api/devices";
-import moment from 'moment'
+import moment from "moment";
 
 export default {
   data() {
@@ -62,7 +50,9 @@ export default {
       listLoading: true,
       listQuery: {
         Id: 1,
-        StartTime: moment().startOf('month').format("YYYY-MM-DD"),
+        StartTime: moment()
+          .startOf("month")
+          .format("YYYY-MM-DD"),
         EndTime: moment().format("YYYY-MM-DD"),
         CurrentPage: 1,
         PageSize: 10,
