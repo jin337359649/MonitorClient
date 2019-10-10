@@ -1,5 +1,22 @@
 import request from '@/utils/request'
 
+export function queryAirMachineData(params) {
+  return request({
+    url: '/api/AirControl/QueryAirMachineData',
+    method: 'get',
+    params: params
+  })
+}
+
+export function exportAirMachineData(params) {
+  return request({
+    url: '/api/AirControl/ExportAirMachine',
+    method: 'get',
+    params: params
+  })
+}
+
+
 export function getCategories() {
   return request({
     url: '/login/Home/QueryCategories',

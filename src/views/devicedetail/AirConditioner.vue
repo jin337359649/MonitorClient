@@ -1,8 +1,9 @@
 <template>
   <div>
     <el-container>
-      <el-header>
+      <el-header class="airHeader">
         <h1>空调机工况</h1>
+        <el-button type="primary" @click="toAirMachineCanHis">查看历史工况记录</el-button>
       </el-header>
       <el-main>
         <el-row :gutter="20">
@@ -90,8 +91,33 @@
               {{ device.respeed }} r/min
             </div>
           </el-col>
+          <el-col :span="6">
+            <div class="grid-content">
+              <label for>制冷总时间：</label>
+              {{ device.totalCode }} h
+            </div>
+          </el-col>
         </el-row>
-
+       <el-row :gutter="20">
+          <el-col :span="6">
+            <div class="grid-content">
+              <label for>工作状态：</label>
+              {{ device.workState }}
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="grid-content">
+              <label for>制冷状态：</label>
+              {{ device.coldState }}
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="grid-content">
+              <label for>压缩机锁死次数：</label>
+              {{ device.lockCount }}
+            </div>
+          </el-col>
+        </el-row>
         <div id="GenderChart" style="float: left; width: 800px; height: 400px; margin-top: 20px;"></div>
 
         <el-table :data="device.errorCountDatas" border fit highlight-current-row>
@@ -125,6 +151,12 @@ export default {
       getAirConditionerById({ id: this.$route.query.id }).then(result => {
         this.device = result.data;
         this.initChart();
+      });
+    },
+    toAirMachineCanHis() {
+      this.$router.push({
+        path: "AirMachineCanHis",
+        query: { id: this.$route.query.id }
       });
     },
     initChart() {
@@ -182,6 +214,16 @@ export default {
 .grid-content > label {
   width: 135px;
   text-align: right;
+  display: inline-block;
+}
+
+.airHeader button {
+  float: right;
+  margin-top: 20px;
+  margin-right: 100px;
+}
+
+.airHeader h1 {
   display: inline-block;
 }
 </style>

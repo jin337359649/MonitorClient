@@ -6,6 +6,8 @@ const getters = {
   name: state => state.user.name,
   roles: state => state.user.roles,
   id: state => state.user.id,
-  AuthCode: state => state.user.authCode
+  AuthCode: state => state.user.authCode,
+  apiUrl:state=>"http://61.147.70.90:55301/api",
+  loginUrl:state=>"http://61.147.70.90:9000"
 }
 export default getters

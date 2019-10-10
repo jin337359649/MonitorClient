@@ -73,6 +73,13 @@ export const constantRouterMap = [
         meta: { title: '空调机', icon: 'table' }
       },
       {
+        path: 'AirMachineCanHis',
+        name: 'AirMachineCanHis',
+        hidden: true,
+        component: () => import('@/views/devicelist/AirMachineCanHis'),
+        meta: { title: '空调机历史工况', icon: 'table' }
+      },
+      {
         path: 'ShowLog',
         name: 'ShowLog',
         hidden: true,

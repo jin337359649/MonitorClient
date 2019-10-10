@@ -55,7 +55,6 @@ export default {
       this.marker.moveAlong(this.lineArr, 2000);
     },
     change() {
-      debugger
       this.map.clearMap();
       this.lineArr = [];
       this.pathParam = [];

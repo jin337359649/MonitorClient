@@ -15,10 +15,8 @@ service.interceptors.request.use(
       config.headers['Authorization'] = store.getters.id+'#'+store.getters.token // 让每个请求携带自定义token 请根据实际情况自行修改
     }
 
-    config.url = config.url.replace(/\/login/, "http://61.147.70.90:9000");
-    // config.url = config.url.replace(/\/login/, "http://localhost:9001");
-    // config.url = config.url.replace(/\/api/, "http://61.147.70.90:9111/api");
-    config.url = config.url.replace(/\/api/, "http://localhost:55300/api");
+    config.url = config.url.replace(/\/login/, store.getters.loginUrl);
+    config.url = config.url.replace(/\/api/, store.getters.apiUrl);
     return config
   },
   request => {

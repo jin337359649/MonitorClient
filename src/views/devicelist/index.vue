@@ -70,7 +70,6 @@ export default {
   },
   mounted() {
     this.fetchData();
-    console.log(this.$store.getters)
   },
   methods: {
     fetchData() {
